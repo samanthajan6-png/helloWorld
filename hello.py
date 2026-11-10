@@ -1,3 +1,6 @@
+import argparse
+
+
 # Create a function called sayHello() that will display hello along with a
 # string parameter name.
 def sayHello(name: str) -> None:
@@ -14,7 +17,25 @@ def greetUser(name: str) -> str:
     return message
 
 
-if __name__ == '__main__':
+def main() -> None:
+    parser = argparse.ArgumentParser(description='Print personalized greetings.')
+    parser.add_argument(
+        'names',
+        nargs='*',
+        metavar='NAME',
+        help='name to greet (provide multiple names for multiple greetings)',
+    )
+    args = parser.parse_args()
+
+    if args.names:
+        for name in args.names:
+            greetUser(name)
+        return
+
     sayHello('Samantha')
     sayGoodbye('Alan')
     greetUser('Class')
+
+
+if __name__ == '__main__':
+    main()
